@@ -38,4 +38,4 @@ def game():
     if input("Хотите сыграть еще? (y/n):") != "y":
         break
 
-game()
+game() 
