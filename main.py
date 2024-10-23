@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
+from googletrans import Translator
 
+translator = Translator()
 def get_eng_words():
     url = 'https://randomword.com/'
     try:
@@ -26,16 +28,18 @@ def game():
     print("Добро пожаловать в игру")
     eng_words = get_eng_words()
     eng_word = eng_words.get('eng_words')
+    ru_word = translator.translate(eng_word, src='en', dest='ru').text
     eng_discription = eng_words.get('eng_discription')
-    print(f"Угадай слово по описанию: {eng_discription}")
+    ru_discription = translator.translate(eng_discription, src='en', dest='ru').text
+    print(f"Угадай слово по описанию: {ru_discription}")
     user_answer = input("Ваш ответ: ")
 
     if user_answer == eng_word:
         print("Правильно")
     else:
-        print(f"Неправильно. Правильное слово: {eng_word}")
+        print(f"Неправильно. Правильное слово: {ru_word}")
 
     if input("Хотите сыграть еще? (y/n):") != "y":
         break
 
-game() 
+game()
